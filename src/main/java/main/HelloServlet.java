@@ -17,4 +17,5 @@ public class HelloServlet extends HttpServlet {
         resp.setContentType("text/html");
         resp.getWriter().write("<h1>Hello from servlet!</h1>");
     }
+
 }

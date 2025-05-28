@@ -7,7 +7,7 @@
     <groupId>com.example.currencyconverter</groupId>
     <artifactId>currency-converter</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging> <!-- Замість jar -->
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -19,7 +19,6 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
-        <!-- JUnit для тестування -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -27,17 +26,26 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- API для сервлетів -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>5.0.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.0</version> <!-- або найновішу версію -->
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>currency-converter</finalName> <!-- Ім’я .war файлу -->
+        <finalName>currency-converter</finalName>
     </build>
 
 </project>

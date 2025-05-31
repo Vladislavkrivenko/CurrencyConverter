@@ -10,8 +10,8 @@ public class CurrencyService {
     private final CurrencyDAO dao = new CurrencyDAO();
 
     public CurrencyResultDTO convert(CurrencyRequestDTO dto) {
-        CurrencyRate rate = dao.findRate(dto.fromCurrency(), dto.toCurrency(), dto.amount());
-        BigDecimal result = dto.amount().multiply(rate.rate());
+        CurrencyRate rate = dao.findRate(dto.fromCurrency(), dto.toCurrency(), dto.rate());
+        BigDecimal result = dto.rate().multiply(rate.rate());
         return new CurrencyResultDTO(result);
     }
 }

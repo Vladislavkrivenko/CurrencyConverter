@@ -2,80 +2,119 @@ package dao;
 
 import dao.daoUtil.ConnectionManager;
 import dto.CurrencyDTO;
-import dto.CurrencyRequestDTO;
-import service.CurrencyRate;
+import exception.DaoException;
 
-import java.math.BigDecimal;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import static dao.daoUtil.ConnectionManager.openConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class CurrencyDAO {
-    public static void main(String[] args) throws SQLException {
-//        String sql = "CREATE TABLE IF NOT EXISTS currencyRate (\n"
-//                     + "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-//                     + "    from_Currency TEXT NOT NULL,\n"
-//                     + "    to_Currency TEXT NOT NULL,\n"
-//                     + "    rate TEXT NOT NULL\n"
-//                     + ");";
-//        try (Connection connection = openConnection()) {
-//            var statement = connection.createStatement();
-//            System.out.println(connection.getTransactionIsolation());
-//            var executeResult = statement.execute(sql);
-//            System.out.println(executeResult + "create");
-//        }
-        CurrencyRequestDTO currencyRequestDTO = new CurrencyRequestDTO("RUB", "UAH", new BigDecimal("0.3"));
-        CurrencyDAO currencyDAO = new CurrencyDAO();
-        currencyDAO.saveCurrencyRate(currencyRequestDTO);
+    private static final String DELETE_CURRENCY = """
+            DELETE FROM currency
+            WHERE id = ?
+            """;
+    private static final String SAVE_CURRENCY = """
+            INSERT INTO currency (id, full_name, code, sign,)
+            VALUES((?, ?, ?, ?)
+            """;
+
+    private static final String UPDATE_CURRENCY = """
+            UPDATE currency
+            SET id = ?,
+                full_name = ?,
+                code = ?,
+                sign = ?
+               WHERE id = ? 
+               """;
+    private static final String FIND_CURRENCY_BY_ID = """
+            SELECT id, 
+                   full_name,
+                   code, 
+                   sign
+            FROM currency
+            WHERE id = ?
+            """;
+    private static final String FIND_ALL_CURRENCY = """
+            SELECT * 
+            FROM currency
+            WHERE id = ?
+            """;
+
+    public void save(CurrencyDTO currencyDTO) throws SQLException {
+        try (var con = ConnectionManager.getConnect();
+             var preparedStatement = con.prepareStatement(SAVE_CURRENCY)) {
+            preparedStatement.setInt(1, currencyDTO.id());
+            preparedStatement.setString(2, currencyDTO.fullName());
+            preparedStatement.setString(3, currencyDTO.code());
+            preparedStatement.setString(4, currencyDTO.sign());
+            preparedStatement.executeUpdate();
+            System.out.println("Currency saved successfully!");
+        } catch (SQLException throwables) {
+            throw new DaoException(throwables);
+        }
     }
 
-
-    public CurrencyRate findRate(String from, String to, BigDecimal rate) {
-        return new CurrencyRate(from, to, rate);
+    public void delete(int id) {
+        try (var connection = ConnectionManager.getConnect();
+             var preparedStatement = connection.prepareStatement(DELETE_CURRENCY)) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throw new DaoException(throwables);
+        }
     }
 
-    public CurrencyDTO getAllCurrencies(String fullName, String code, String sign, BigDecimal rate) {
-        String str = """
-                SELECT full_name,
-                code,
-                sign,
-                FROM currencies
-                """;
-        return new CurrencyDTO(fullName, code, sign);
-    }
-
-    public void saveCurrency(CurrencyDTO currencyDTO) throws SQLException {
-        String sql = "INSERT INTO currency (full_name, code, sign) VALUES (?, ?, ?)";
-        try (var con = ConnectionManager.openConnection();
-             PreparedStatement preparedStatement = con.prepareStatement(sql)) {
-
+    public void update(CurrencyDTO currencyDTO) {
+        try (var connection = ConnectionManager.getConnect();
+             var preparedStatement = connection.prepareStatement(UPDATE_CURRENCY)) {
+            preparedStatement.setInt(1, currencyDTO.id());
             preparedStatement.setString(1, currencyDTO.fullName());
             preparedStatement.setString(2, currencyDTO.code());
             preparedStatement.setString(3, currencyDTO.sign());
             preparedStatement.executeUpdate();
-            System.out.println("Currency saved successfully!");
-        } catch (SQLException e) {
-            throw new RuntimeException("Error saving currencies", e);
+        } catch (SQLException throwables) {
+            throw new DaoException(throwables);
         }
-
     }
 
-    public void saveCurrencyRate(CurrencyRequestDTO requestDTO) throws SQLException {
-        String sql = "INSERT INTO currencyRate (from_Currency, to_Currency, rate) VALUES (?, ?, ?)";
-        try (var con = ConnectionManager.openConnection();
-             PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+    public Optional<CurrencyDTO> findById(int id) {
+        try (var connection = ConnectionManager.getConnect();
+             var preparedStatement = connection.prepareStatement(FIND_CURRENCY_BY_ID)) {
+            preparedStatement.setInt(1, id);
 
-            preparedStatement.setString(1, requestDTO.fromCurrency());
-            preparedStatement.setString(2, requestDTO.toCurrency());
-            preparedStatement.setString(3, requestDTO.rate().toPlainString());
-            preparedStatement.executeUpdate();
-            System.out.println("Currency saved successfully!");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            openConnection().close();
+            var resultSet = preparedStatement.executeQuery();
+            CurrencyDTO currencyDTO = null;
+            if (resultSet.next()) {
+                currencyDTO = buildDto(resultSet);
+            }
+            return Optional.ofNullable(currencyDTO);
+        } catch (SQLException throwables) {
+            throw new DaoException(throwables);
         }
+    }
 
+    public List<CurrencyDTO> findAll() {
+        try (var connection = ConnectionManager.getConnect();) {
+            var preparedStatement = connection.prepareStatement(FIND_ALL_CURRENCY);
+            var resultSet = preparedStatement.executeQuery();
+            List<CurrencyDTO> dtos = new ArrayList<>();
+            while (resultSet.next()) {
+                dtos.add(buildDto(resultSet));
+            }
+            return dtos;
+        } catch (SQLException throwables) {
+            throw new DaoException(throwables);
+        }
+    }
+
+    private CurrencyDTO buildDto(ResultSet resultSet) throws SQLException {
+        return new CurrencyDTO(
+                resultSet.getInt("id"),
+                resultSet.getString("full_name"),
+                resultSet.getString("code"),
+                resultSet.getString("sign")
+        );
     }
 }

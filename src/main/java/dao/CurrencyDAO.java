@@ -16,7 +16,7 @@ public class CurrencyDAO {
             WHERE id = ?
             """;
     private static final String SAVE_CURRENCY = """
-            INSERT INTO currency (id, full_name, code, sign,)
+            INSERT INTO currency (id, full_name, code, sign)
             VALUES((?, ?, ?, ?)
             """;
 
@@ -37,7 +37,10 @@ public class CurrencyDAO {
             WHERE id = ?
             """;
     private static final String FIND_ALL_CURRENCY = """
-            SELECT * 
+            SELECT id,
+                   full_name,
+                   code,
+                   sign
             FROM currency
             WHERE id = ?
             """;

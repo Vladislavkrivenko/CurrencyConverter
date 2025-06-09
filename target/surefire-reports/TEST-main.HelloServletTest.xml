@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="RU"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk17\bin"/>
-    <property name="sun.java.command" value="C:\Users\Владислав\AppData\Local\Temp\surefire330096178422440871\surefirebooter-20250606183814930_3.jar C:\Users\Владислав\AppData\Local\Temp\surefire330096178422440871 2025-06-06T18-38-14_808-jvmRun1 surefire-20250606183814930_1tmp surefire_0-20250606183814930_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Владислав\AppData\Local\Temp\surefire4954321696743500893\surefirebooter-20250609120108889_3.jar C:\Users\Владислав\AppData\Local\Temp\surefire4954321696743500893 2025-06-09T12-01-08_753-jvmRun1 surefire-20250609120108889_1tmp surefire_0-20250609120108889_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Project\currency-converter\target\test-classes;C:\Project\currency-converter\target\classes;C:\Users\Владислав\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Владислав\.m2\repository\jakarta\servlet\jakarta.servlet-api\5.0.0\jakarta.servlet-api-5.0.0.jar;C:\Users\Владислав\.m2\repository\org\xerial\sqlite-jdbc\3.49.1.0\sqlite-jdbc-3.49.1.0.jar;C:\Users\Владислав\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\Владислав\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.0\jackson-databind-2.17.0.jar;C:\Users\Владислав\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.0\jackson-annotations-2.17.0.jar;C:\Users\Владислав\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.0\jackson-core-2.17.0.jar;C:\Users\Владислав\.m2\repository\net\bytebuddy\byte-buddy\1.14.9\byte-buddy-1.14.9.jar;C:\Users\Владислав\.m2\repository\org\mapstruct\mapstruct\1.5.5.Final\mapstruct-1.5.5.Final.jar;C:\Users\Владислав\.m2\repository\org\mapstruct\mapstruct-processor\1.5.5.Final\mapstruct-processor-1.5.5.Final.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Владислав\AppData\Local\Temp\surefire330096178422440871\surefirebooter-20250606183814930_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Владислав\AppData\Local\Temp\surefire4954321696743500893\surefirebooter-20250609120108889_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.11+7-LTS-207"/>
@@ -49,7 +49,7 @@
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="native.encoding" value="Cp1251"/>
-    <property name="java.library.path" value="C:\Java\jdk17\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Java\apache-maven-3.9.8\bin;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\ZeroTier\One\;C:\Java\jdk17\bin;C:\Users\Владислав\AppData\Local\Microsoft\WindowsApps;C:\Users\Владислав\AppData\Local\GitHubDesktop\bin;C:\Java\InteliJ\IntelliJ IDEA Community Edition 2024.1.4\bin;."/>
+    <property name="java.library.path" value="C:\Java\jdk17\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Java\apache-maven-3.9.8\bin;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\ZeroTier\One\;%JAVA_HOME%\bin;C:\Users\Владислав\AppData\Local\Microsoft\WindowsApps;C:\Users\Владислав\AppData\Local\GitHubDesktop\bin;C:\Java\InteliJ\IntelliJ IDEA Community Edition 2024.1.4\bin;;."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="java.vendor" value="Oracle Corporation"/>
     <property name="java.vm.version" value="17.0.11+7-LTS-207"/>

@@ -64,24 +64,25 @@ public class CurrencyRateDAO {
         }
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         try (var connection = ConnectionManager.getConnect();
              var preparedStatement = connection.prepareStatement(DELETE_CURRENCY_RATE)) {
             preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throw new DaoException(throwables);
         }
     }
 
-    public void update(CurrencyRate currencyRate) {
+    public boolean update(CurrencyRate currencyRate) {
         try (var connection = ConnectionManager.getConnect();
              var preparedStatement = connection.prepareStatement(UPDATE_CURRENCY_RATE)) {
             preparedStatement.setInt(1, currencyRate.id());
             preparedStatement.setString(1, currencyRate.fromCurrency());
             preparedStatement.setString(2, currencyRate.toCurrency());
             preparedStatement.setString(3, currencyRate.rate().toPlainString());
-            preparedStatement.executeUpdate();
+            int rowsUpdate = preparedStatement.executeUpdate();
+            return rowsUpdate > 0;
         } catch (SQLException throwables) {
             throw new DaoException(throwables);
         }

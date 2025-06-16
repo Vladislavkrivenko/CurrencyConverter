@@ -7,16 +7,18 @@ import mapper.CurrencyRateMapper;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
-public class CurrencyRateService implements CurrenciesService<CurrencyRateDTO>{
+public class CurrencyRateService implements CurrenciesService<CurrencyRateDTO> {
     private static final CurrencyRateService INSTANCE = new CurrencyRateService();
     private final CurrencyRateDAO rateDAO = CurrencyRateDAO.getInstance();
 
     private CurrencyRateService() {
     }
-@Override
+
+    @Override
     public List<CurrencyRateDTO> findAll() {
         return rateDAO.findAll().stream().map(CurrencyRateMapper.CURRENCY_RATE_MAPPER::toRateDto)
                 .collect(toList());
@@ -37,6 +39,10 @@ public class CurrencyRateService implements CurrenciesService<CurrencyRateDTO>{
     public boolean update(CurrencyRateDTO currencyRateDTO) {
         CurrencyRate rate = CurrencyRateMapper.CURRENCY_RATE_MAPPER.toEntity(currencyRateDTO);
         return rateDAO.update(rate);
+    }
+
+    public Optional<CurrencyRateDTO> findById(int id) {
+        return rateDAO.findById(id).map(CurrencyRateMapper.CURRENCY_RATE_MAPPER::toRateDto);
     }
 
     public static CurrencyRateService getInstance() {

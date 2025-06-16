@@ -40,12 +40,12 @@ public class CurrencyRateDAO {
             WHERE id = ?
             """;
     private static final String FIND_ALL_CURRENCY_RATE = """
-            SELECT id, 
+            SELECT id,
             from_Currency,
             to_Currency,
             rate
             FROM currencyRate
-            """;
+             """;
 
     private CurrencyRateDAO() {
     }

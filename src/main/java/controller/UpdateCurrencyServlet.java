@@ -14,8 +14,8 @@ import java.io.IOException;
 @WebServlet("/update-currency")
 public class UpdateCurrencyServlet extends HttpServlet {
 
-    CurrencyService service = CurrencyService.getInstance();
-    Gson gson = new Gson();
+    private final CurrencyService service = CurrencyService.getInstance();
+    private final Gson gson = new Gson();
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

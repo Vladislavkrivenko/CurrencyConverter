@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.CurrencyRateService;
+import util.CurrencyValidator;
 
 import java.io.IOException;
 
@@ -20,14 +21,17 @@ public class UpdateRateServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             CurrencyRateDTO rateDTO = gson.fromJson(req.getReader(), CurrencyRateDTO.class);
+            CurrencyValidator.rateValidator(rateDTO);
             boolean update = service.update(rateDTO);
             if (update) {
-                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                resp.setStatus(200);
             } else {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.setStatus(404);
             }
+        } catch (IllegalArgumentException e) {
+            resp.setStatus(400);
         } catch (Exception e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.setStatus(500);
         }
     }
 }

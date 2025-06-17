@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.CurrencyService;
+import util.CurrencyValidator;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ public class SaveCurrencies extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CurrencyDTO currencyDTO = gson.fromJson(req.getReader(), CurrencyDTO.class);
         try {
+            CurrencyValidator.currenciesValidator(currencyDTO);
             service.save(currencyDTO);
             resp.setStatus(SC_CREATED);
         } catch (SQLException e) {

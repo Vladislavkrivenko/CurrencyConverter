@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.CurrencyService;
+import util.CurrencyValidator;
 
 import java.io.IOException;
 
@@ -22,14 +23,17 @@ public class UpdateCurrencyServlet extends HttpServlet {
 
         try {
             CurrencyDTO currencyDTO = gson.fromJson(req.getReader(), CurrencyDTO.class);
+            CurrencyValidator.currenciesValidator(currencyDTO);
             boolean updated = service.update(currencyDTO);
             if (updated) {
-                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                resp.setStatus(200);
             } else {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.setStatus(404);
             }
-        } catch (Exception e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (IllegalArgumentException e) {
+            resp.setStatus(400);
+        }catch (Exception e){
+            resp.setStatus(500);
         }
     }
 }

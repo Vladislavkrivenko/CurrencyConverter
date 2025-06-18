@@ -29,13 +29,10 @@ public class CurrenciesDAO {
                 sign = ?
                WHERE id = ? 
                """;
-    private static final String FIND_CURRENCY_BY_ID = """
-            SELECT id, 
-                   full_name,
-                   code, 
-                   sign
-            FROM currency
-            WHERE id = ?
+    private static final String FIND_CURRENCY_BY_CODE = """
+             SELECT * 
+             FROM currency 
+             WHERE code = ?;
             """;
     private static final String FIND_ALL_CURRENCY = """
             SELECT id,
@@ -87,13 +84,14 @@ public class CurrenciesDAO {
         }
     }
 
-    public Optional<Currencies> findById(int id) {
+    public Optional<Currencies> findByCode(String code) {
         try (var connection = ConnectionManager.getConnect();
-             var preparedStatement = connection.prepareStatement(FIND_CURRENCY_BY_ID)) {
-            preparedStatement.setInt(1, id);
+             var preparedStatement = connection.prepareStatement(FIND_CURRENCY_BY_CODE)) {
+            preparedStatement.setString(1,code);
 
             var resultSet = preparedStatement.executeQuery();
             Currencies currencies = null;
+
             if (resultSet.next()) {
                 currencies = buildCurrencies(resultSet);
             }

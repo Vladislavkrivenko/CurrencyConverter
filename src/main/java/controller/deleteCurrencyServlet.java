@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @WebServlet("/delete-currency")
 public class deleteCurrencyServlet extends HttpServlet {
-    CurrencyService service = CurrencyService.getInstance();
+    private final CurrencyService service = CurrencyService.getInstance();
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

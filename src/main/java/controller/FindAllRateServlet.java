@@ -23,12 +23,17 @@ public class FindAllRateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        List<CurrencyRateDTO> requestDTOS = service.findAll();
-        String json = gson.toJson(requestDTOS);
-        try (var printWriter = resp.getWriter()) {
-            printWriter.write(json);
-        }
+        try {
+            List<CurrencyRateDTO> requestDTOS = service.findAll();
+            String json = gson.toJson(requestDTOS);
+            resp.setStatus(HttpServletResponse.SC_OK);
 
+            try (var printWriter = resp.getWriter()) {
+                printWriter.write(json);
+            }
+        } catch (Exception e) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 }
 

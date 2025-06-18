@@ -26,14 +26,14 @@ public class UpdateCurrencyServlet extends HttpServlet {
             CurrencyValidator.currenciesValidator(currencyDTO);
             boolean updated = service.update(currencyDTO);
             if (updated) {
-                resp.setStatus(200);
+                resp.setStatus(HttpServletResponse.SC_OK);
             } else {
-                resp.setStatus(404);
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (IllegalArgumentException e) {
-            resp.setStatus(400);
-        }catch (Exception e){
-            resp.setStatus(500);
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (Exception e) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

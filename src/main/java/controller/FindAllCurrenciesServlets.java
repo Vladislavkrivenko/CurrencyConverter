@@ -17,16 +17,23 @@ import java.util.List;
 @WebServlet("/find-all")
 public class FindAllCurrenciesServlets extends HttpServlet {
     private final CurrencyService service = CurrencyService.getInstance();
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        List<CurrencyDTO> currencies = service.findAll();
-        String json = gson.toJson(currencies);
-        try (var printWriter = resp.getWriter()) {
-            printWriter.write(json);
+
+        try {
+            List<CurrencyDTO> currencies = service.findAll();
+            String json = gson.toJson(currencies);
+
+            resp.setStatus(HttpServletResponse.SC_OK);
+            try (var printWriter = resp.getWriter()) {
+                printWriter.write(json);
+            }
+        } catch (Exception e) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

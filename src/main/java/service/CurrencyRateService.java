@@ -41,8 +41,9 @@ public class CurrencyRateService implements CurrenciesService<CurrencyRateDTO> {
         return rateDAO.update(rate);
     }
 
-    public Optional<CurrencyRateDTO> findById(int id) {
-        return rateDAO.findById(id).map(CurrencyRateMapper.CURRENCY_RATE_MAPPER::toRateDto);
+    public Optional<CurrencyRateDTO> findByPair(String from, String to) {
+        return rateDAO.SearchCurrencyPair(from, to)
+                .map(CurrencyRateMapper.CURRENCY_RATE_MAPPER::toRateDto);
     }
 
     public static CurrencyRateService getInstance() {

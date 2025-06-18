@@ -11,7 +11,6 @@ import service.CurrencyRateService;
 import util.CurrencyValidator;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/save-rate")
 public class SaveRateServlet extends HttpServlet {
@@ -20,13 +19,17 @@ public class SaveRateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CurrencyRateDTO currencyRateDTO = gson.fromJson(req.getReader(), CurrencyRateDTO.class);
         try {
+            CurrencyRateDTO currencyRateDTO = gson.fromJson(req.getReader(), CurrencyRateDTO.class);
             CurrencyValidator.rateValidator(currencyRateDTO);
+
             service.save(currencyRateDTO);
-            resp.setStatus(201);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            resp.setStatus(HttpServletResponse.SC_CREATED);
+
+        } catch (IllegalArgumentException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (Exception e) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

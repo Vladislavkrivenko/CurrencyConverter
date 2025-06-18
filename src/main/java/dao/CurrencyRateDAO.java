@@ -31,21 +31,27 @@ public class CurrencyRateDAO {
             rate
                WHERE id = ? 
                """;
-    private static final String FIND_CURRENCY_BY_ID_RATE = """
-            SELECT id,
-            from_Currency,
-            to_Currency,
-            rate
-            FROM currencyRate
-            WHERE id = ?
+    private static final String FIND_CURRENCY_BY_PAIR_RATE = """
+                        SELECT cr.id,
+                       cr.from_currency,
+                       cr.to_currency,
+                       cr.rate
+                FROM currencyRate cr
+                JOIN currency c1 ON cr.from_currency = c1.id
+                JOIN currency c2 ON cr.to_currency = c2.id
+                WHERE c1.code = ? AND c2.code = ?
             """;
+
     private static final String FIND_ALL_CURRENCY_RATE = """
-            SELECT id,
-            from_Currency,
-            to_Currency,
-            rate
-            FROM currencyRate
-             """;
+            SELECT
+              r.id,
+              c1.code AS from_currency,
+              c2.code AS to_currency,
+              r.rate
+            FROM currencyRate r
+            JOIN currency c1 ON r.from_Currency = c1.id
+            JOIN currency c2 ON r.to_Currency = c2.id;
+                 """;
 
     private CurrencyRateDAO() {
     }
@@ -88,13 +94,16 @@ public class CurrencyRateDAO {
         }
     }
 
-    public Optional<CurrencyRate> findById(int id) {
+    public Optional<CurrencyRate> SearchCurrencyPair(String from, String to) {
         try (var connection = ConnectionManager.getConnect();
-             var preparedStatement = connection.prepareStatement(FIND_CURRENCY_BY_ID_RATE)) {
-            preparedStatement.setInt(1, id);
+             var preparedStatement = connection.prepareStatement(FIND_CURRENCY_BY_PAIR_RATE)) {
+
+            preparedStatement.setString(1, from);
+            preparedStatement.setString(2, to);
 
             var resultSet = preparedStatement.executeQuery();
             CurrencyRate currencyRate = null;
+
             if (resultSet.next()) {
                 currencyRate = buildCurrencyRate(resultSet);
             }
@@ -121,8 +130,8 @@ public class CurrencyRateDAO {
     private CurrencyRate buildCurrencyRate(ResultSet resultSet) throws SQLException {
         return new CurrencyRate(
                 resultSet.getInt("id"),
-                resultSet.getString("from_Currency"),
-                resultSet.getString("to_Currency"),
+                resultSet.getString("from_currency"),
+                resultSet.getString("to_currency"),
                 resultSet.getBigDecimal("rate")
         );
     }

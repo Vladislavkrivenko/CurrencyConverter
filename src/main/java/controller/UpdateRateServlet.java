@@ -24,14 +24,14 @@ public class UpdateRateServlet extends HttpServlet {
             CurrencyValidator.rateValidator(rateDTO);
             boolean update = service.update(rateDTO);
             if (update) {
-                resp.setStatus(200);
+                resp.setStatus(HttpServletResponse.SC_OK);
             } else {
-                resp.setStatus(404);
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (IllegalArgumentException e) {
-            resp.setStatus(400);
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } catch (Exception e) {
-            resp.setStatus(500);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

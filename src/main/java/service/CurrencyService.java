@@ -26,9 +26,13 @@ public class CurrencyService implements CurrenciesService<CurrencyDTO> {
     }
 
     @Override
-    public void save(CurrencyDTO currencyDTO) throws SQLException {
+    public void save(CurrencyDTO currencyDTO) {
         Currencies currencies = CurrencyMapper.CURRENCY_MAPPER.toEntity(currencyDTO);
-        dao.save(currencies);
+        try {
+            dao.save(currencies);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -41,8 +45,8 @@ public class CurrencyService implements CurrenciesService<CurrencyDTO> {
         Currencies currencies = CurrencyMapper.CURRENCY_MAPPER.toEntity(currencyDTO);
         return dao.update(currencies);
     }
-public Optional<CurrencyDTO>findById(int id){
-        return dao.findById(id).map(CurrencyMapper.CURRENCY_MAPPER::toDto);
+public Optional<CurrencyDTO> findByCode(String code){
+        return dao.findByCode(code).map(CurrencyMapper.CURRENCY_MAPPER::toDto);
 }
 
     public static CurrencyService getInstance() {

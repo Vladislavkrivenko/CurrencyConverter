@@ -52,4 +52,10 @@ public class CurrencyValidator {
             throw new IllegalArgumentException("Rate must be greater than zero");
         }
     }
+
+    public static void validateCurrencyCode(String code) {
+        if (!code.matches("^[A-Z]{3}$")) {
+            throw new IllegalArgumentException("Currency code must be 3 uppercase letters");
+        }
+    }
 }

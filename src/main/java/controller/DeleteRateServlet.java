@@ -9,7 +9,7 @@ import service.CurrencyRateService;
 
 import java.io.IOException;
 
-@WebServlet("/delete-rate")
+@WebServlet("/delete-amount")
 public class DeleteRateServlet extends HttpServlet {
     private final CurrencyRateService service = CurrencyRateService.getInstance();
 

@@ -40,7 +40,7 @@ public class CurrencyValidator {
         }
         String fromCurrency = rateDTO.fromCurrency();
         String toCurrency = rateDTO.toCurrency();
-        BigDecimal rate = rateDTO.rate();
+        BigDecimal rate = rateDTO.amount();
 
         if (fromCurrency == null || !fromCurrency.matches("^[A-Z]{3}$")) {
             throw new IllegalArgumentException("From currency code must be 3 uppercase letters");

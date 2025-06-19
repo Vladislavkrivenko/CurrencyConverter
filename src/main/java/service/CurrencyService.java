@@ -45,9 +45,10 @@ public class CurrencyService implements CurrenciesService<CurrencyDTO> {
         Currencies currencies = CurrencyMapper.CURRENCY_MAPPER.toEntity(currencyDTO);
         return dao.update(currencies);
     }
-public Optional<CurrencyDTO> findByCode(String code){
+
+    public Optional<CurrencyDTO> findByCode(String code) {
         return dao.findByCode(code).map(CurrencyMapper.CURRENCY_MAPPER::toDto);
-}
+    }
 
     public static CurrencyService getInstance() {
         return INSTANCE;

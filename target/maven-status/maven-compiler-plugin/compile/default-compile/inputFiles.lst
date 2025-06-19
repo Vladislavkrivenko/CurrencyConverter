@@ -12,11 +12,11 @@ C:\Project\currency-converter\src\main\java\entity\Currencies.java
 C:\Project\currency-converter\src\main\java\mapper\CurrencyRateMapper.java
 C:\Project\currency-converter\src\main\java\exception\DaoException.java
 C:\Project\currency-converter\src\main\java\service\CurrencyRateService.java
-C:\Project\currency-converter\src\main\java\service\ConversionService.java
 C:\Project\currency-converter\src\main\java\service\CurrencyService.java
 C:\Project\currency-converter\src\main\java\dao\daoUtil\PropertiesUtil.java
 C:\Project\currency-converter\src\main\java\dto\CurrencyDTO.java
 C:\Project\currency-converter\src\main\java\controller\DeleteRateServlet.java
+C:\Project\currency-converter\src\main\java\controller\ConvertCurrenciesServlet.java
 C:\Project\currency-converter\src\main\java\dao\CurrencyRateDAO.java
 C:\Project\currency-converter\src\main\java\mapper\CurrencyMapper.java
 C:\Project\currency-converter\src\main\java\controller\deleteCurrencyServlet.java

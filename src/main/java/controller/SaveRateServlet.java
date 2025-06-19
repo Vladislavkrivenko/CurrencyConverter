@@ -12,7 +12,7 @@ import util.CurrencyValidator;
 
 import java.io.IOException;
 
-@WebServlet("/save-rate")
+@WebServlet("/save-amount")
 public class SaveRateServlet extends HttpServlet {
     private final CurrencyRateService service = CurrencyRateService.getInstance();
     private final Gson gson = new Gson();

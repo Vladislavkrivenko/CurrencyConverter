@@ -87,7 +87,7 @@ public class CurrenciesDAO {
     public Optional<Currencies> findByCode(String code) {
         try (var connection = ConnectionManager.getConnect();
              var preparedStatement = connection.prepareStatement(FIND_CURRENCY_BY_CODE)) {
-            preparedStatement.setString(1,code);
+            preparedStatement.setString(1, code);
 
             var resultSet = preparedStatement.executeQuery();
             Currencies currencies = null;

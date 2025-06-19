@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@WebServlet("/all-rate")
+@WebServlet("/all-amount")
 public class FindAllRateServlet extends HttpServlet {
     private final CurrencyRateService service = CurrencyRateService.getInstance();
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();

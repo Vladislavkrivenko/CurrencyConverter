@@ -7,7 +7,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-18T17:07:10+0300",
+    date = "2025-06-19T15:59:25+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.11 (Oracle Corporation)"
 )
 public class CurrencyRateMapperImpl implements CurrencyRateMapper {
@@ -18,15 +18,15 @@ public class CurrencyRateMapperImpl implements CurrencyRateMapper {
             return null;
         }
 
+        BigDecimal amount = null;
         String fromCurrency = null;
         String toCurrency = null;
-        BigDecimal rate = null;
 
+        amount = currencyRate.rate();
         fromCurrency = currencyRate.fromCurrency();
         toCurrency = currencyRate.toCurrency();
-        rate = currencyRate.rate();
 
-        CurrencyRateDTO currencyRateDTO = new CurrencyRateDTO( fromCurrency, toCurrency, rate );
+        CurrencyRateDTO currencyRateDTO = new CurrencyRateDTO( fromCurrency, toCurrency, amount );
 
         return currencyRateDTO;
     }
@@ -37,13 +37,13 @@ public class CurrencyRateMapperImpl implements CurrencyRateMapper {
             return null;
         }
 
+        BigDecimal rate = null;
         String fromCurrency = null;
         String toCurrency = null;
-        BigDecimal rate = null;
 
+        rate = currencyRateDTO.amount();
         fromCurrency = currencyRateDTO.fromCurrency();
         toCurrency = currencyRateDTO.toCurrency();
-        rate = currencyRateDTO.rate();
 
         int id = 0;
 

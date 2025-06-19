@@ -10,6 +10,7 @@ dto\CurrencyResultDTO.class
 dto\CurrencyDTO.class
 util\CurrencyValidator.class
 service\CurrenciesService.class
+controller\ConvertCurrenciesServlet.class
 controller\FindAllRateServlet.class
 controller\FindByCode.class
 mapper\CurrencyMapper.class
@@ -21,7 +22,6 @@ controller\DeleteRateServlet.class
 dao\daoUtil\ConnectionManager.class
 controller\UpdateCurrencyServlet.class
 mapper\CurrencyMapperImpl.class
-service\ConversionService.class
 controller\UpdateRateServlet.class
 mapper\CurrencyRateMapperImpl.class
 controller\FindRateByPair.class

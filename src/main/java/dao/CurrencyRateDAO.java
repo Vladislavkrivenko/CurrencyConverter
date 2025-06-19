@@ -20,26 +20,25 @@ public class CurrencyRateDAO {
             """;
     private static final String SAVE_CURRENCY_RATE = """
             INSERT INTO currencyRate (id, from_Currency, to_Currency, rate)
-            VALUES((?, ?, ?,?)
+            VALUES(?, ?, ?, ?)
             """;
 
     private static final String UPDATE_CURRENCY_RATE = """
             UPDATE currencyRate
-            SET id,
-            from_Currency,
-            to_Currency,
-            rate
+            SET from_Currency = ?,
+            to_Currency = ?,
+            rate = ?
                WHERE id = ? 
                """;
     private static final String FIND_CURRENCY_BY_PAIR_RATE = """
-                        SELECT cr.id,
-                       cr.from_currency,
-                       cr.to_currency,
-                       cr.rate
-                FROM currencyRate cr
-                JOIN currency c1 ON cr.from_currency = c1.id
-                JOIN currency c2 ON cr.to_currency = c2.id
-                WHERE c1.code = ? AND c2.code = ?
+                     SELECT cr.id,
+                            c1.code AS from_currency,
+                            c2.code AS to_currency,
+                            cr.rate
+                     FROM currencyRate cr
+                     JOIN currency c1 ON cr.from_currency = c1.id
+                     JOIN currency c2 ON cr.to_currency = c2.id
+                     WHERE c1.code = ? AND c2.code = ?
             """;
 
     private static final String FIND_ALL_CURRENCY_RATE = """
@@ -83,10 +82,10 @@ public class CurrencyRateDAO {
     public boolean update(CurrencyRate currencyRate) {
         try (var connection = ConnectionManager.getConnect();
              var preparedStatement = connection.prepareStatement(UPDATE_CURRENCY_RATE)) {
-            preparedStatement.setInt(1, currencyRate.id());
             preparedStatement.setString(1, currencyRate.fromCurrency());
             preparedStatement.setString(2, currencyRate.toCurrency());
             preparedStatement.setString(3, currencyRate.rate().toPlainString());
+            preparedStatement.setInt(4, currencyRate.id());
             int rowsUpdate = preparedStatement.executeUpdate();
             return rowsUpdate > 0;
         } catch (SQLException throwables) {
@@ -94,7 +93,7 @@ public class CurrencyRateDAO {
         }
     }
 
-    public Optional<CurrencyRate> SearchCurrencyPair(String from, String to) {
+    public Optional<CurrencyRate> findCurrencyPair(String from, String to) {
         try (var connection = ConnectionManager.getConnect();
              var preparedStatement = connection.prepareStatement(FIND_CURRENCY_BY_PAIR_RATE)) {
 

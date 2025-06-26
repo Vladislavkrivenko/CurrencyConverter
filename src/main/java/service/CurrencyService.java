@@ -11,21 +11,19 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
-public class CurrencyService implements CurrenciesService<CurrencyDTO> {
+public class CurrencyService {
     private static final CurrencyService INSTANCE = new CurrencyService();
     private final CurrenciesDAO dao = CurrenciesDAO.getInstance();
 
     private CurrencyService() {
     }
 
-    @Override
     public List<CurrencyDTO> findAll() {
         return dao.findAll().stream().map(CurrencyMapper.CURRENCY_MAPPER::toDto)
                 .collect(toList());
 
     }
 
-    @Override
     public void save(CurrencyDTO currencyDTO) {
         Currencies currencies = CurrencyMapper.CURRENCY_MAPPER.toEntity(currencyDTO);
         try {
@@ -35,12 +33,10 @@ public class CurrencyService implements CurrenciesService<CurrencyDTO> {
         }
     }
 
-    @Override
     public boolean delete(int id) {
         return dao.delete(id);
     }
 
-    @Override
     public boolean update(CurrencyDTO currencyDTO) {
         Currencies currencies = CurrencyMapper.CURRENCY_MAPPER.toEntity(currencyDTO);
         return dao.update(currencies);

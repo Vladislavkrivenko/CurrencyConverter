@@ -12,7 +12,7 @@ public class CurrencyValidator {
             throw new IllegalArgumentException("CurrencyDTO must not be null");
         }
 
-        String fullName = dto.fullName();
+        String fullName = dto.name();
         String code = dto.code();
         String sign = dto.sign();
 

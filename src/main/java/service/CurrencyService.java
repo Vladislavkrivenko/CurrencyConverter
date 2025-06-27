@@ -33,15 +33,6 @@ public class CurrencyService {
         }
     }
 
-    public boolean delete(int id) {
-        return dao.delete(id);
-    }
-
-    public boolean update(CurrencyDTO currencyDTO) {
-        Currencies currencies = CurrencyMapper.CURRENCY_MAPPER.toEntity(currencyDTO);
-        return dao.update(currencies);
-    }
-
     public Optional<CurrencyDTO> findByCode(String code) {
         return dao.findByCode(code).map(CurrencyMapper.CURRENCY_MAPPER::toDto);
     }

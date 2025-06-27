@@ -12,11 +12,8 @@ controller\CurrenciesServlet.class
 mapper\CurrencyMapper.class
 mapper\CurrencyRateMapper.class
 controller\CurrencyRateServlet.class
-controller\deleteCurrencyServlet.class
 service\CurrencyService.class
-controller\DeleteRateServlet.class
 dao\daoUtil\ConnectionManager.class
-controller\UpdateCurrencyServlet.class
 controller\ExchangeRateServlet.class
 mapper\CurrencyMapperImpl.class
 controller\CurrencyServlet.class

@@ -13,22 +13,11 @@ import java.util.Optional;
 public class CurrenciesDAO {
     private static final CurrenciesDAO INSTANCE = new CurrenciesDAO();
 
-    private static final String DELETE_CURRENCY = """
-            DELETE FROM currency
-            WHERE id = ?
-            """;
     private static final String SAVE_CURRENCY = """
             INSERT INTO currency (id, full_name, code, sign)
             VALUES(?, ?, ?, ?)
             """;
 
-    private static final String UPDATE_CURRENCY = """
-            UPDATE currency
-            SET full_name = ?,
-                code = ?,
-                sign = ?
-               WHERE id = ? 
-               """;
     private static final String FIND_CURRENCY_BY_CODE = """
              SELECT * 
              FROM currency 
@@ -55,30 +44,6 @@ public class CurrenciesDAO {
             preparedStatement.setString(4, currencies.sign());
             preparedStatement.executeUpdate();
             System.out.println("Currency saved successfully!");
-        } catch (SQLException throwables) {
-            throw new DaoException(throwables);
-        }
-    }
-
-    public boolean delete(int id) {
-        try (var connection = ConnectionManager.getConnect();
-             var preparedStatement = connection.prepareStatement(DELETE_CURRENCY)) {
-            preparedStatement.setInt(1, id);
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException throwables) {
-            throw new DaoException(throwables);
-        }
-    }
-
-    public boolean update(Currencies currencies) {
-        try (var connection = ConnectionManager.getConnect();
-             var preparedStatement = connection.prepareStatement(UPDATE_CURRENCY)) {
-            preparedStatement.setString(1, currencies.fullName());
-            preparedStatement.setString(2, currencies.code());
-            preparedStatement.setString(3, currencies.sign());
-            preparedStatement.setInt(4, currencies.id());
-            int rowsUpdate = preparedStatement.executeUpdate();
-            return rowsUpdate > 0;
         } catch (SQLException throwables) {
             throw new DaoException(throwables);
         }

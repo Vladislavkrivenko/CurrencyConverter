@@ -8,15 +8,12 @@ C:\Project\currency-converter\src\main\java\dao\daoUtil\PropertiesUtil.java
 C:\Project\currency-converter\src\main\java\dao\CurrenciesDAO.java
 C:\Project\currency-converter\src\main\java\dto\CurrencyDTO.java
 C:\Project\currency-converter\src\main\java\dto\CurrencyResultDTO.java
-C:\Project\currency-converter\src\main\java\controller\UpdateCurrencyServlet.java
-C:\Project\currency-converter\src\main\java\controller\DeleteRateServlet.java
 C:\Project\currency-converter\src\main\java\dao\daoUtil\ConnectionManager.java
 C:\Project\currency-converter\src\main\java\dao\CurrencyRateDAO.java
 C:\Project\currency-converter\src\main\java\controller\CorsFilter.java
 C:\Project\currency-converter\src\main\java\dto\CurrencyRateDTO.java
 C:\Project\currency-converter\src\main\java\mapper\CurrencyMapper.java
 C:\Project\currency-converter\src\main\java\controller\CurrencyRateServlet.java
-C:\Project\currency-converter\src\main\java\controller\deleteCurrencyServlet.java
 C:\Project\currency-converter\src\main\java\controller\ConvertServlet.java
 C:\Project\currency-converter\src\main\java\entity\Currencies.java
 C:\Project\currency-converter\src\main\java\controller\CurrenciesServlet.java

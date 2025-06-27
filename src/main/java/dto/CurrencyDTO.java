@@ -1,4 +1,4 @@
 package dto;
 
-public record CurrencyDTO(String fullName, String code, String sign) {
+public record CurrencyDTO(String name, String code, String sign) {
 }

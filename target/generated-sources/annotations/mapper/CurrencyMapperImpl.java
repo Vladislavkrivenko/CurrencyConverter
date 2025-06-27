@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-26T14:01:26+0300",
+    date = "2025-06-27T15:08:32+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.11 (Oracle Corporation)"
 )
 public class CurrencyMapperImpl implements CurrencyMapper {
@@ -17,15 +17,15 @@ public class CurrencyMapperImpl implements CurrencyMapper {
             return null;
         }
 
-        String fullName = null;
+        String name = null;
         String code = null;
         String sign = null;
 
-        fullName = currencies.fullName();
+        name = currencies.fullName();
         code = currencies.code();
         sign = currencies.sign();
 
-        CurrencyDTO currencyDTO = new CurrencyDTO( fullName, code, sign );
+        CurrencyDTO currencyDTO = new CurrencyDTO( name, code, sign );
 
         return currencyDTO;
     }
@@ -40,7 +40,7 @@ public class CurrencyMapperImpl implements CurrencyMapper {
         String code = null;
         String sign = null;
 
-        fullName = currencyDTO.fullName();
+        fullName = currencyDTO.name();
         code = currencyDTO.code();
         sign = currencyDTO.sign();
 

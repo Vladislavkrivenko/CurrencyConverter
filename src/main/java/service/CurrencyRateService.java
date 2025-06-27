@@ -31,13 +31,18 @@ public class CurrencyRateService {
         rateDAO.save(rate);
     }
 
-    public boolean delete(int id) {
-        return rateDAO.delete(id);
-    }
-
-    public boolean update(CurrencyRateDTO currencyRateDTO) {
-        CurrencyRate rate = CurrencyRateMapper.CURRENCY_RATE_MAPPER.toEntity(currencyRateDTO);
-        return rateDAO.update(rate);
+    public boolean update(String from, String to, BigDecimal newRate) {
+        Optional<CurrencyRate> nowRate = rateDAO.findCurrencyPair(from, to);
+        if (nowRate.isEmpty()) {
+            return false;
+        }
+        CurrencyRate existing = nowRate.get();
+        CurrencyRate updated = new CurrencyRate(
+                existing.id()
+                , existing.fromCurrency(),
+                existing.toCurrency()
+                , newRate);
+        return rateDAO.update(updated);
     }
 
     public Optional<CurrencyRateDTO> findByPair(String from, String to) {

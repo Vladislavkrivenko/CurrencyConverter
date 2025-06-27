@@ -13,21 +13,18 @@ import java.util.Optional;
 public class CurrencyRateDAO {
     private static final CurrencyRateDAO INSTANCE = new CurrencyRateDAO();
 
-
-    private static final String DELETE_CURRENCY_RATE = """
-            DELETE FROM currencyRate
-            WHERE id = ?
-            """;
     private static final String SAVE_CURRENCY_RATE = """
-            INSERT INTO currencyRate (id, from_Currency, to_Currency, rate)
-            VALUES(?, ?, ?, ?)
+                INSERT INTO currencyRate (from_currency, to_currency, rate)
+                VALUES (
+                  (SELECT id FROM currency WHERE code = ?),
+                  (SELECT id FROM currency WHERE code = ?),
+                  ?
+                )
             """;
 
     private static final String UPDATE_CURRENCY_RATE = """
             UPDATE currencyRate
-            SET from_Currency = ?,
-            to_Currency = ?,
-            rate = ?
+            SET rate = ?
                WHERE id = ? 
                """;
     private static final String FIND_CURRENCY_BY_PAIR_RATE = """
@@ -58,22 +55,11 @@ public class CurrencyRateDAO {
     public void save(CurrencyRate currencyRate) throws SQLException {
         try (var con = ConnectionManager.getConnect();
              var preparedStatement = con.prepareStatement(SAVE_CURRENCY_RATE)) {
-            preparedStatement.setInt(1, currencyRate.id());
-            preparedStatement.setString(2, currencyRate.fromCurrency());
-            preparedStatement.setString(3, currencyRate.toCurrency());
-            preparedStatement.setString(4, currencyRate.rate().toPlainString());
+            preparedStatement.setString(1, currencyRate.fromCurrency());
+            preparedStatement.setString(2, currencyRate.toCurrency());
+            preparedStatement.setString(3, currencyRate.rate().toPlainString());
             preparedStatement.executeUpdate();
             System.out.println("Currency saved successfully!");
-        } catch (SQLException throwables) {
-            throw new DaoException(throwables);
-        }
-    }
-
-    public boolean delete(int id) {
-        try (var connection = ConnectionManager.getConnect();
-             var preparedStatement = connection.prepareStatement(DELETE_CURRENCY_RATE)) {
-            preparedStatement.setInt(1, id);
-            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throw new DaoException(throwables);
         }
@@ -82,10 +68,8 @@ public class CurrencyRateDAO {
     public boolean update(CurrencyRate currencyRate) {
         try (var connection = ConnectionManager.getConnect();
              var preparedStatement = connection.prepareStatement(UPDATE_CURRENCY_RATE)) {
-            preparedStatement.setString(1, currencyRate.fromCurrency());
-            preparedStatement.setString(2, currencyRate.toCurrency());
-            preparedStatement.setString(3, currencyRate.rate().toPlainString());
-            preparedStatement.setInt(4, currencyRate.id());
+            preparedStatement.setString(1, currencyRate.rate().toPlainString());
+            preparedStatement.setInt(2, currencyRate.id());
             int rowsUpdate = preparedStatement.executeUpdate();
             return rowsUpdate > 0;
         } catch (SQLException throwables) {

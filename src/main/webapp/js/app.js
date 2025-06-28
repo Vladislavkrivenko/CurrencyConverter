@@ -94,8 +94,10 @@ $(document).ready(function() {
                 tbody.empty();
                 $.each(response, function(index, rate) {
                     const row = $('<tr></tr>');
-                    const currency = rate.fromCurrency.code + rate.toCurrency.code;
+
+                    const currency = rate.fromCurrency + "-" + rate.toCurrency;//изменил
                     const exchangeRate = rate.amount;
+
                     row.append($('<td></td>').text(currency));
                     row.append($('<td></td>').text(exchangeRate));
                     row.append($('<td></td>').html(
